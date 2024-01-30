@@ -25,6 +25,6 @@ jobs:
     - name: Deploy
       run: |
         echo $CR_PAT | docker login ghcr.io -u USERNAME --password-stdin
-        docker push ghcr.io/KamyNz/ci-cd-artifact-python/artifact-python-demo:latest
+        docker push ghcr.io/kamynz/ci-cd-artifact-python/artifact-python-demo:latest
 
 
