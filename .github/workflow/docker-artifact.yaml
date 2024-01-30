@@ -1,0 +1,30 @@
+on:
+  push:
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  python-artifact:
+    runs-on: ubuntu-latest
+    name: "python artifact"
+
+    env:
+      CR_PAT: ${{ secrets.CR_PAT }}
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4.1.1
+
+    - name: Build
+      run: |
+        docker build -t artifact-python-demo .
+        docker tag ghcr.io/KamyNz/ci-cd-artifact-python/artifact-python-demo:latest artifact-python-demo
+
+    - name: Deploy
+      run: |
+        echo $CR_PAT | docker login ghcr.io -u USERNAME --password-stdin
+        docker push ghcr.io/KamyNz/ci-cd-artifact-python/artifact-python-demo:latest
+
+
