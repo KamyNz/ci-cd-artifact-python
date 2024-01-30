@@ -12,6 +12,8 @@ jobs:
 
     env:
       CR_PAT: ${{ secrets.CR_PAT }}
+      REPO_NAME: "kamynz/ci-cd-artifact-python"
+      IMAGE_NAME: "artifact-python-demo:latest"
 
     steps:
     - name: Checkout
@@ -20,11 +22,12 @@ jobs:
     - name: Build
       run: |
         docker build -t artifact-python-demo:latest .
-        docker tag artifact-python-demo:latest ghcr.io/kamynz/ci-cd-artifact-python/artifact-python-demo:latest
+        docker tag artifact-python-demo:latest ghcr.io/${{ REPO_NAME }}/artifact-python-demo:latest
 
     - name: Deploy
       run: |
         echo $CR_PAT | docker login ghcr.io -u USERNAME --password-stdin
-        docker push ghcr.io/kamynz/ci-cd-artifact-python/artifact-python-demo:latest
+        docker push ghcr.io/${{ REPO_NAME }}/artifact-python-demo:latest
 
+      #This can be use in other infrastructure to run.
 
