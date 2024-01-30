@@ -27,6 +27,7 @@ jobs:
     - name: Deploy
       run: |
         echo $CR_PAT | docker login ghcr.io -u USERNAME --password-stdin
+        repository_lowercase=$(echo "${{ env.GITHUB_REPOSITORY }}" | tr '[:upper:]' '[:lower:]')
         docker push ghcr.io/$repository_lowercase/artifact-python-demo:latest
 
       #This can be use in other infrastructure to run.
