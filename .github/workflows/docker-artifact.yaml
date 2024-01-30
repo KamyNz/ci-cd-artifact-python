@@ -13,6 +13,7 @@ jobs:
     env:
       CR_PAT: ${{ secrets.CR_PAT }}
 
+
     steps:
     - name: Checkout
       uses: actions/checkout@v4.1.1
@@ -20,6 +21,8 @@ jobs:
     - name: Build
       run: |
         echo $GITHUB_REPOSITORY
+        REPO_NAME=$(echo "$GITHUB_REPOSITORY" | sed 's/.*\///')
+        echo $REPO_NAME
         docker build -t artifact-python-demo:latest .
         docker tag artifact-python-demo:latest ghcr.io/kamynz/ci-cd-artifact-python/artifact-python-demo:latest
 
